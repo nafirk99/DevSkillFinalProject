@@ -15,6 +15,15 @@ dotnet ef migrations remove --project EntityPractice2 --context AppDbContext  |R
 
 "DefaultConnection": "Server=.\\SQLEXPRESS;Database=aspa10;User Id=aspnetb10;Password=123456;Trust Server Certificate=True"
 
+
+=============================================================================
+app settings
+ProductDbCntext to InventoryDbContext, 
+IProductUnitOfWork to IInventoryUnitOfWork,
+
+=============================================================================
+
+
 public class Animal
 {
  Id
