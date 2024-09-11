@@ -8,7 +8,8 @@ using Serilog.Events;
 using Serilog.Sinks.MSSqlServer;
 using DevSkill.Inventory.Web;
 using System.Reflection;
-using DevSkill.Inventory.Infrastructutre; //  We Add this using directive
+using DevSkill.Inventory.Infrastructutre;
+using DevSkill.Inventory.Infrastructure.Identity; //  We Add this using directive
 
 #region Bootstrap Logger Configuration
 var configuration = new ConfigurationBuilder()
@@ -56,8 +57,15 @@ try
     });
     #endregion
 
-    builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-        .AddEntityFrameworkStores<ApplicationDbContext>();
+    builder.Services
+        .AddIdentity<ApplicationUser, ApplicationRole>()
+        .AddEntityFrameworkStores<ApplicationDbContext>()
+        .AddUserManager<ApplicationUserManager>()
+        .AddRoleManager<ApplicationRoleManager>()
+        .AddSignInManager<ApplicationSignInManager>()
+        .AddDefaultTokenProviders();
+
+
     builder.Services.AddControllersWithViews();
 
     var app = builder.Build();
@@ -91,7 +99,7 @@ try
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
 
-    app.MapRazorPages();
+    //app.MapRazorPages();
 
     app.Run();
 
