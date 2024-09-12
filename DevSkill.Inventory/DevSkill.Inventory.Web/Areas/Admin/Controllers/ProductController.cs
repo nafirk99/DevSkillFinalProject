@@ -1,11 +1,12 @@
 ﻿using DevSkill.Inventory.Application.Services;
 using DevSkill.Inventory.Domain.Entities;
 using DevSkill.Inventory.Web.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevSkill.Inventory.Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize]
     public class ProductController : Controller
     {
         private readonly IProductManagementServices _productManagementServices;
